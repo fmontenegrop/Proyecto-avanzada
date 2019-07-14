@@ -1,5 +1,6 @@
 package cto;
 
+import cto.Validar;
 import dao.Persona_DAO;
 import dto.PersonaDTO;
 import java.io.IOException;
@@ -15,9 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author GAMER
  */
 public class Controlador extends HttpServlet {
-    Persona_DAO person=new Persona_DAO();
-    List  <PersonaDTO> listap;
-    PersonaDTO persondto=new PersonaDTO();    
+
+    Validar v = new Validar();
+    Persona_DAO person = new Persona_DAO();
+    List<PersonaDTO> listap;
+    PersonaDTO persondto = new PersonaDTO();
+    private String dato;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,36 +33,36 @@ public class Controlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accion = request.getParameter("accion");                
-        switch (accion) {
-            case "Persona":
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        String accion = request.getParameter("accion");
+        switch (accion) {           
+            case "DtoEst":                                
+                request.getRequestDispatcher("DatosEst.jsp").forward(request, response);
                 break;
-                case "HomeD":
+            case "HomeD":
                 request.getRequestDispatcher("Home_doc.jsp").forward(request, response);
-                break; 
+                break;
             case "HomeE":
                 request.getRequestDispatcher("Home_est.jsp").forward(request, response);
-                break;           
-            case "Agregar": 
-                String user = request.getParameter("txtUser");
-                String pass=request.getParameter("txtPass");
+                break;
+            case "Agregar":
+                //String user = request.getParameter("txtUser");
+                //String pass = request.getParameter("txtPass");
                 //persondto=person.validar(user, pass);                  
                 String nombre = request.getParameter("txtNadd");
-                String apellido=request.getParameter("txtAadd");
-                String correo=request.getParameter("txtCadd");
+                String apellido = request.getParameter("txtAadd");
+                String correo = request.getParameter("txtCadd");
                 this.person.insertP(nombre, apellido, correo);
                 System.out.println("Succesfull");
-                this.listap=person.getPersonas();                
-                request.setAttribute("listap",this.listap);
-                request.setAttribute("user",persondto);
+                this.listap = person.getPersonas();
+                request.setAttribute("listap", this.listap);
+                request.setAttribute("user", persondto);
                 request.getRequestDispatcher("Principal.jsp").forward(request, response);
                 break;
-            case "Eliminar":               
-                String id=request.getParameter("id");
+            case "Eliminar":
+                String id = request.getParameter("id");
                 this.person.deleteP(id);
-                this.listap=person.getPersonas();                
-                request.setAttribute("listap",this.listap);
+                this.listap = person.getPersonas();
+                request.setAttribute("listap", this.listap);
                 request.getRequestDispatcher("Principal.jsp").forward(request, response);
                 System.out.println("Delete succesfull");
                 break;
@@ -91,6 +95,7 @@ public class Controlador extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         request.getRequestDispatcher("Validar.jsp").forward(request, response); 
     }
 
     /**
@@ -105,6 +110,15 @@ public class Controlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         String accion = request.getParameter("accion");
+        switch (accion) {
+            case "ingresar":
+                String user = request.getParameter("txtUser");
+                String pass = request.getParameter("txtPass");
+                dato=user;
+                System.out.println("datos " + dato);
+                break;
+        }
     }
 
     /**

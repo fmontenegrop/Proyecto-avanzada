@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto/app_web/src/java/cto/Validar.java</file>
-            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto/app_web/web/Principal1.jsp</file>
-            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto/app_web/web/Principal.jsp</file>
-            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto/app_web/src/java/cto/Controlador.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/dao/DocenteDAO.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/conexion/Conexion_1.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/dao/Persona_DAO.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/DatosEst.jsp</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/dto/Docente_DTO.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/Principal1.jsp</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/Home_est.jsp</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/Home_doc.jsp</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/dto/PersonaDTO.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/Principal.jsp</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/cto/Controlador.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/src/java/cto/Validar.java</file>
+            <file>file:/C:/Users/GAMER/Desktop/trabajos/Avanzada/Proyecto%20final/app_web%20final/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

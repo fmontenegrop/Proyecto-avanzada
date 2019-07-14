@@ -28,10 +28,18 @@ public class Validar extends HttpServlet {
     public List<PersonaDTO> getListap() {
         return listap;
     }
-    DocenteDAO docDao = new DocenteDAO();
-    Docente_DTO docDto = new Docente_DTO();
-    Persona_DAO person = new Persona_DAO();
-    PersonaDTO persondto = new PersonaDTO();
+    private DocenteDAO docDao = new DocenteDAO();
+    private Docente_DTO docDto = new Docente_DTO();
+    private Persona_DAO person = new Persona_DAO();
+    private PersonaDTO persondto = new PersonaDTO();
+
+    public PersonaDTO getPersondto() {
+        return persondto;
+    }
+
+    public void setPersondto(PersonaDTO persondto) {
+        this.persondto = persondto;
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,13 +100,12 @@ public class Validar extends HttpServlet {
                     System.out.println("NULL");
                 }
             } else {
-                persondto = person.validar(Integer.parseInt(user), Integer.parseInt(pass));
-                if (persondto.getNombre() != null) {
-
+                this.persondto = person.validar(Integer.parseInt(user), Integer.parseInt(pass));
+                if (this.persondto.getNombre() != null) {
                     this.listap = person.getPersonas();
                     request.setAttribute("listap", this.listap);
-                    request.setAttribute("user", persondto);
-                    request.getRequestDispatcher("Controlador?accion=HomeE").forward(request, response);
+                    request.setAttribute("user", this.persondto);                    
+                    request.getRequestDispatcher("Controlador?accion=HomeE ").forward(request, response);                    
                 } else {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     System.out.println("NULL");
