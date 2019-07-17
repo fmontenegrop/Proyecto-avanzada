@@ -20,7 +20,13 @@
                     <a class="navbar-brand" href="#">Cursos</a>            
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a type="submit" name="docente" value="nombre" class="btn btn-outline-info" href="Controlador?accion=perfilE&estudiante=${estudiante.getNombre()}" target="myFrame">${estudiante.getNombre()}</a>
+                            <a  class="btn btn-outline-info" href="Controlador?accion=perfilE&estudiante=${estudiante.getNombre()}" target="myFrame">${estudiante.getNombre()}</a>
+                        </div>
+                        <div class="navbar-nav pl-3">
+                            <a  class="btn btn-outline-info" href="Controlador?accion=Vernotas" target="myFrame">Notas</a>
+                        </div>
+                        <div class="navbar-nav pl-3">
+                            <a  class="btn btn-outline-info" href="Controlador?accion=RegistrarC&estudiante=${estudiante.getNombre()}" target="myFrame">Reguistrar Curso</a>
                         </div>
                     </div>
                     <a name="accion" class="btn btn-outline-info" value="salir" href="Controlador?accion=salir" >Salir</a>

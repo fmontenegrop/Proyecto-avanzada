@@ -10,6 +10,9 @@ public class Registro_DTO implements Serializable{
     private int codigo_e;
     private int id_c;
 
+    public Registro_DTO() {
+    }
+
     public int getId() {
         return id;
     }

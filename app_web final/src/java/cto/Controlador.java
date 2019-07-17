@@ -5,16 +5,16 @@
  */
 package cto;
 
-import dao.Estudiante_DAO;
-import dao.Profesor_DAO;
-import dto.Estudiante_DTO;
+import dao.*;
+import dto.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dto.Profesor_DTO;
+
 
 /**
  *
@@ -36,8 +36,11 @@ public class Controlador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Profesor_DTO p = new Profesor_DTO();
         Profesor_DAO p_dao = new Profesor_DAO();
-        Estudiante_DTO e=new Estudiante_DTO();
-        Estudiante_DAO e_dao=new Estudiante_DAO();
+        Estudiante_DTO e = new Estudiante_DTO();
+        Estudiante_DAO e_dao = new Estudiante_DAO();
+        Registro_DTO r=new Registro_DTO();
+        Registro_DAO r_dao=new Registro_DAO();
+        List<Registro_DTO> rL;
         String accion = request.getParameter("accion");
         switch (accion) {
             case "HomeP":
@@ -55,13 +58,28 @@ public class Controlador extends HttpServlet {
                 p = p_dao.obtenerP(dato);
                 request.setAttribute("usuario", p);
                 request.getRequestDispatcher("Perfil.jsp").forward(request, response);
-            break;
+                break;
             case "perfilE":
                 String datoE = request.getParameter("estudiante");
                 e = e_dao.obtenerE(datoE);
                 request.setAttribute("usuario", e);
                 request.getRequestDispatcher("PerfilE.jsp").forward(request, response);
-            break;
+                break;
+            case "Vernotas":
+                request.getRequestDispatcher("VerNotas.jsp").forward(request, response);
+                break;
+            case "RegistrarC":                
+                String datoER = request.getParameter("estudiante");                
+                String estado=null;
+                e = e_dao.obtenerE(datoER);                
+                rL=r_dao.obtenerR(Integer.toString(e.getCodigo()));
+                if(rL==null) estado="No hay Materias Inscritas";                 
+                request.setAttribute("estado", estado);
+                request.setAttribute("lista", rL);
+                request.setAttribute("usuario", e);                
+                request.getRequestDispatcher("RegistroC.jsp").forward(request, response);
+                break;
+            
                 
         }
     }

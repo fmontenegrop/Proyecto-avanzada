@@ -27,7 +27,9 @@ public class Validar extends HttpServlet {
     Estudiante_DTO e = new Estudiante_DTO();
     Estudiante_DAO e_dao = new Estudiante_DAO();
     Profesor_DAO p_dao = new Profesor_DAO();
-
+    Curso_DTO c=new Curso_DTO();
+    Curso_DAO c_dao=new Curso_DAO();
+    Registro_DAO r_dao=new Registro_DAO();
     public void setE(Estudiante_DTO e) {
         this.e = e;
     }
@@ -116,6 +118,17 @@ public class Validar extends HttpServlet {
             this.e=this.e_dao.obtenerE(dato);
             request.setAttribute("usuario", e);
            request.getRequestDispatcher("PerfilE.jsp").forward(request, response);
+        }
+         if(action.equals("AddC")){            
+            String curso=request.getParameter("AddCurso");
+            String fecha=request.getParameter("AddFecha");
+            String estudiante=request.getParameter("AddE");
+             System.out.println("Estudiante "+estudiante);
+            this.e=this.e_dao.obtenerE(estudiante);
+            this.c=this.c_dao.obtenerC(curso);
+            this.r_dao.registrarCurso(fecha, Integer.toString(e.getCodigo()), Integer.toString(c.getId()));
+            request.setAttribute("estudiante", e.getNombre());
+            request.getRequestDispatcher("Controlador?accion=RegistrarC").forward(request, response);
         }
     }
 

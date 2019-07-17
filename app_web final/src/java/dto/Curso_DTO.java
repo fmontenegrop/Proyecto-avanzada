@@ -8,6 +8,9 @@ public class Curso_DTO implements Serializable{
     private String nombre;
     private int codigo_profesor;
 
+    public Curso_DTO() {
+    }
+
     public int getId() {
         return id;
     }
