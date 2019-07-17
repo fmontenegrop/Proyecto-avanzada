@@ -33,7 +33,7 @@
                             Profesor
                         </label>
                     </div>
-                    <input type="submit" name="accion" value="ingresar" class="btn btn-primary btn-block">                    
+                    <input type="submit" name="accion" value="ingresar" class="btn btn-primary btn-block">
                 </form>
             </div>
         </div>

@@ -1,15 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cto;
 
-import cto.Validar;
-import dao.Persona_DAO;
-import dto.PersonaDTO;
+import dao.Estudiante_DAO;
+import dao.Profesor_DAO;
+import dto.Estudiante_DTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import dto.Profesor_DTO;
 
 /**
  *
@@ -17,11 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Controlador extends HttpServlet {
 
-    Validar v = new Validar();
-    Persona_DAO person = new Persona_DAO();
-    List<PersonaDTO> listap;
-    PersonaDTO persondto = new PersonaDTO();
-    private String dato;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,52 +33,36 @@ public class Controlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        Profesor_DTO p = new Profesor_DTO();
+        Profesor_DAO p_dao = new Profesor_DAO();
+        Estudiante_DTO e=new Estudiante_DTO();
+        Estudiante_DAO e_dao=new Estudiante_DAO();
         String accion = request.getParameter("accion");
-        switch (accion) {           
-            case "DtoEst":                                
-                request.getRequestDispatcher("DatosEst.jsp").forward(request, response);
-                break;
-            case "HomeD":
-                request.getRequestDispatcher("Home_doc.jsp").forward(request, response);
+        switch (accion) {
+            case "HomeP":
+                request.getRequestDispatcher("HomeP.jsp").forward(request, response);
                 break;
             case "HomeE":
-                request.getRequestDispatcher("Home_est.jsp").forward(request, response);
+                request.getRequestDispatcher("HomeE.jsp").forward(request, response);
                 break;
-            case "Agregar":
-                //String user = request.getParameter("txtUser");
-                //String pass = request.getParameter("txtPass");
-                //persondto=person.validar(user, pass);                  
-                String nombre = request.getParameter("txtNadd");
-                String apellido = request.getParameter("txtAadd");
-                String correo = request.getParameter("txtCadd");
-                this.person.insertP(nombre, apellido, correo);
-                System.out.println("Succesfull");
-                this.listap = person.getPersonas();
-                request.setAttribute("listap", this.listap);
-                request.setAttribute("user", persondto);
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
+            case "salir":
+                System.out.println("Salir");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case "Eliminar":
-                String id = request.getParameter("id");
-                this.person.deleteP(id);
-                this.listap = person.getPersonas();
-                request.setAttribute("listap", this.listap);
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                System.out.println("Delete succesfull");
-                break;
-        }
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controlador</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controlador at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            case "perfil":
+                String dato = request.getParameter("docente");
+                p = p_dao.obtenerP(dato);
+                request.setAttribute("usuario", p);
+                request.getRequestDispatcher("Perfil.jsp").forward(request, response);
+            break;
+            case "perfilE":
+                String datoE = request.getParameter("estudiante");
+                e = e_dao.obtenerE(datoE);
+                request.setAttribute("usuario", e);
+                request.getRequestDispatcher("PerfilE.jsp").forward(request, response);
+            break;
+                
         }
     }
 
@@ -95,7 +79,6 @@ public class Controlador extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         request.getRequestDispatcher("Validar.jsp").forward(request, response); 
     }
 
     /**
@@ -110,15 +93,6 @@ public class Controlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         String accion = request.getParameter("accion");
-        switch (accion) {
-            case "ingresar":
-                String user = request.getParameter("txtUser");
-                String pass = request.getParameter("txtPass");
-                dato=user;
-                System.out.println("datos " + dato);
-                break;
-        }
     }
 
     /**

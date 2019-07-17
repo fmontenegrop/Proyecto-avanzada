@@ -1,29 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dto;
 
-/**
- *
- * @author GAMER
- */
-public class Docente_DTO {
+import java.io.Serializable;
+
+public class Profesor_DTO implements Serializable{
     private int codigo;
     private String nombre;
     private int cc;
     private int clave;
-
-    public Docente_DTO() {
-    }
-
-    public Docente_DTO(int codigo, String nombre, int cc, int clave) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.cc = cc;
-        this.clave = clave;
-    }
 
     public int getCodigo() {
         return codigo;
@@ -56,6 +40,19 @@ public class Docente_DTO {
     public void setClave(int clave) {
         this.clave = clave;
     }
-    
-}
 
+    public Profesor_DTO(String nombre, int clave) {
+        this.nombre = nombre;
+        this.clave = clave;
+    }
+
+    public Profesor_DTO() {
+    }
+
+    public Profesor_DTO(int codigo, String nombre, int cc, int clave) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.cc = cc;
+        this.clave = clave;
+    }
+}

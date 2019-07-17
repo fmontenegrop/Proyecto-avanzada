@@ -23,39 +23,26 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Validar", urlPatterns = {"/Validar"})
 public class Validar extends HttpServlet {
 
-    List<PersonaDTO> listap;
+    Profesor_DTO p = new Profesor_DTO();
+    Estudiante_DTO e = new Estudiante_DTO();
+    Estudiante_DAO e_dao = new Estudiante_DAO();
+    Profesor_DAO p_dao = new Profesor_DAO();
 
-    public List<PersonaDTO> getListap() {
-        return listap;
-    }
-    private DocenteDAO docDao = new DocenteDAO();
-    private Docente_DTO docDto = new Docente_DTO();
-    private Persona_DAO person = new Persona_DAO();
-    private PersonaDTO persondto = new PersonaDTO();
-
-    public PersonaDTO getPersondto() {
-        return persondto;
+    public void setE(Estudiante_DTO e) {
+        this.e = e;
     }
 
-    public void setPersondto(PersonaDTO persondto) {
-        this.persondto = persondto;
+    public void setP(Profesor_DTO p) {
+        this.p = p;
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Validar</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Validar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         String accion = request.getParameter("accion");
+        switch (accion) {        
+            
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,38 +71,52 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("accion");
-
+        String action = request.getParameter("accion");             
         if (action.equals("ingresar")) {
             String user = request.getParameter("txtUser");
             String pass = request.getParameter("txtPass");
             String rol = request.getParameter("rol");
             boolean bDat = Boolean.parseBoolean(rol);
             if (bDat == true) {
-                docDto = docDao.validar(Integer.parseInt(user), Integer.parseInt(pass));
-                if (docDto.getNombre() != null) {
-                    request.getRequestDispatcher("Controlador?accion=HomeD").forward(request, response);
+                this.p = this.p_dao.loginP(user, pass);
+                if (this.p.getNombre() != null) {
+                    this.setP(p);                    
+                    request.setAttribute("docente", this.p);
+                    request.getRequestDispatcher("Controlador?accion=HomeP").forward(request, response);                    
                 } else {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
-                    System.out.println("NULL");
                 }
             } else {
-                this.persondto = person.validar(Integer.parseInt(user), Integer.parseInt(pass));
-                if (this.persondto.getNombre() != null) {
-                    this.listap = person.getPersonas();
-                    request.setAttribute("listap", this.listap);
-                    request.setAttribute("user", this.persondto);                    
-                    request.getRequestDispatcher("Controlador?accion=HomeE ").forward(request, response);                    
+                this.e = this.e_dao.loginP(user, pass);
+                if (this.e.getNombre() != null) {
+                    this.setE(e);
+                    request.setAttribute("estudiante", this.e);
+                    request.getRequestDispatcher("Controlador?accion=HomeE").forward(request, response);
                 } else {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
-                    System.out.println("NULL");
                 }
             }
 
-        } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } 
+        if(action.equals("editarN")){
+            String actual=request.getParameter("txtActual");
+            String dato=request.getParameter("txtDato");
+            this.p=this.p_dao.obtenerP(actual);
+            this.p_dao.Editar(Integer.toString(p.getCodigo()), dato, "nombre");
+            this.p=this.p_dao.obtenerP(dato);
+            request.setAttribute("usuario", p);
+           request.getRequestDispatcher("Perfil.jsp").forward(request, response);
         }
-
+         if(action.equals("editarE")){
+            
+            String actual=request.getParameter("txtActual");
+            String dato=request.getParameter("txtDato");
+            this.e=this.e_dao.obtenerE(actual);
+            this.e_dao.Editar(Integer.toString(e.getCodigo()), dato, "nombre");
+            this.e=this.e_dao.obtenerE(dato);
+            request.setAttribute("usuario", e);
+           request.getRequestDispatcher("PerfilE.jsp").forward(request, response);
+        }
     }
 
     /**
