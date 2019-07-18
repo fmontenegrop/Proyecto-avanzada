@@ -10,20 +10,47 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
     </head>
     <body>
-        <div class="row">
-            <h1>Adicion y Cancelacion de Materias</h1>
+        <div class="container">
+            <div class="row">
+                <h1>Adicion y Cancelacion de Materias</h1>
+            </div>
+            <div class="row pt-4" style="color: #d39e00;">
+                <h2>${estado}</h2>
+            </div>
+            <div class="row pt-4">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Agregar Curso
+                </button>
+            </div>
+            <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>                                                    
+                            <th scope="col">Codigo Asignatura</th>                                                                                   
+                            <th scope="col">Accion</th>   
+                        </tr>
+                    </thead>
+                    <tbody>                      
+                       <c:forEach var="l" items="${lis}">                                
+                                <tr>                                                        
+                                 <td name="id">${l.getId_c()}</td>                                
+                                <td>
+                                    <div class="row">                                        
+                                        <div class="col-md-6">
+                                            <a href="Controlador?accion=Eliminar&id=${persona.getId()}" class="btn btn-danger btn-block">Eliminar</a>
+                                        </div>                                    
+                                    </div>                                    
+                                </td>                                                                                        
+                            </tr>     
+                        </c:forEach>
+                    </tbody>
+                </table>                   
+            </div>
         </div>
-        <div class="row">
-            <h2>${estado}</h2>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Agregar Curso
-            </button>
-        </div>
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

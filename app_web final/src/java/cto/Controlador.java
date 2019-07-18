@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author GAMER
  */
 public class Controlador extends HttpServlet {
-
+ List<Registro_DTO> rL;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +40,7 @@ public class Controlador extends HttpServlet {
         Estudiante_DAO e_dao = new Estudiante_DAO();
         Registro_DTO r=new Registro_DTO();
         Registro_DAO r_dao=new Registro_DAO();
-        List<Registro_DTO> rL;
+       
         String accion = request.getParameter("accion");
         switch (accion) {
             case "HomeP":
@@ -71,11 +71,11 @@ public class Controlador extends HttpServlet {
             case "RegistrarC":                
                 String datoER = request.getParameter("estudiante");                
                 String estado=null;
-                e = e_dao.obtenerE(datoER);                
+                e = e_dao.obtenerE(datoER);                  
                 rL=r_dao.obtenerR(Integer.toString(e.getCodigo()));
-                if(rL==null) estado="No hay Materias Inscritas";                 
+                if(rL.size()==0) estado="No hay Materias Inscritas";                 
                 request.setAttribute("estado", estado);
-                request.setAttribute("lista", rL);
+                request.setAttribute("list", rL);
                 request.setAttribute("usuario", e);                
                 request.getRequestDispatcher("RegistroC.jsp").forward(request, response);
                 break;

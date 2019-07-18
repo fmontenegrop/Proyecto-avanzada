@@ -16,22 +16,19 @@ import java.util.logging.Logger;
 
 public class Registro_DAO {
     public List<Registro_DTO> obtenerR(String codigo) {        
-        List<Registro_DTO> list= null;
-        String sql = "SELECT * FROM tb_registro WHERE cod_e=\""+codigo+"\"";
+        List<Registro_DTO> list = null;
+        String sql = "select * from tb_registro where cod_e=\""+codigo+"\"";
         Connection com = ConexionBD.obtener();        
-        if (com != null) {
-           
+        if (com != null) {            
             PreparedStatement psmt;
             try {
                 psmt = com.prepareStatement(sql);
                 ResultSet rs = psmt.executeQuery();
-                while (rs.next()) {
-                    Registro_DTO obj = new Registro_DTO();
-                    obj.setId(rs.getInt("id"));
-                    obj.setFecha(rs.getDate("fecha"));
-                    obj.setCodigo_e(rs.getInt("cod_e"));
-                    obj.setId_c(rs.getInt("id_c"));
+                 list = new ArrayList<>();
+                while (rs.next()) {                    
+                    Registro_DTO obj = new Registro_DTO(rs.getInt("id"),rs.getDate("fecha"),rs.getInt("cod_e"),rs.getInt("id_c"));
                     list.add(obj);
+                    System.out.println(""+obj.getId());
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Profesor_DAO.class.getName()).log(Level.SEVERE, null, ex);
